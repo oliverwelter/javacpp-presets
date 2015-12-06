@@ -54,7 +54,7 @@
     <module>caffe</module>
     <module>cuda</module>
     <module>tensorflow</module>
-		<module>rtimulib2</module>
+		<module>rtimulib</module>
   </modules>
 
   <prerequisites>

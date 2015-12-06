@@ -2,17 +2,18 @@
 # This file is meant to be included by the parent cppbuild.sh script
 if [[ -z "$PLATFORM" ]]; then
     pushd ..
-    bash cppbuild.sh "$@" rtimulib2
+    bash cppbuild.sh "$@" rtimulib
     popd
     exit
 fi
 
-download https://github.com/richards-tech/RTIMULib2/archive/master.zip rtimulib2-master.zip
+RTIMULIB_VERSION=7.2.1
+download https://launchpad.net/~flexiondotorg/+archive/ubuntu/wily-pi/+files/rtimulib_$RTIMULIB_VERSION.orig.tar.gz rtimulib-$RTIMULIB_VERSION.tar.gz
 
 mkdir -p $PLATFORM
 cd $PLATFORM
-unzip ../rtimulib2-master.zip
-cd RTIMULib2-master
+tar -xzvf ../rtimulib-$RTIMULIB_VERSION.tar.gz
+cd rtimulib-$RTIMULIB_VERSION
 mkdir build
 cd build
 

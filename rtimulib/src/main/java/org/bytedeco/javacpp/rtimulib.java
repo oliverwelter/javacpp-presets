@@ -1,4 +1,4 @@
-// Targeted by JavaCPP version 1.1
+// Targeted by JavaCPP version 1.2-SNAPSHOT
 
 package org.bytedeco.javacpp;
 
@@ -54,9 +54,9 @@ public static final double RTMATH_RAD_TO_DEGREE =		(180.0 / RTMATH_PI);
 public static class RTMath extends Pointer {
     static { Loader.load(); }
     /** Default native constructor. */
-    public RTMath() { allocate(); }
+    public RTMath() { super((Pointer)null); allocate(); }
     /** Native array allocator. Access with {@link Pointer#position(int)}. */
-    public RTMath(int size) { allocateArray(size); }
+    public RTMath(int size) { super((Pointer)null); allocateArray(size); }
     /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
     public RTMath(Pointer p) { super(p); }
     private native void allocate();
@@ -103,15 +103,15 @@ public static class RTMath extends Pointer {
     /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
     public RTVector3(Pointer p) { super(p); }
     /** Native array allocator. Access with {@link Pointer#position(int)}. */
-    public RTVector3(int size) { allocateArray(size); }
+    public RTVector3(int size) { super((Pointer)null); allocateArray(size); }
     private native void allocateArray(int size);
     @Override public RTVector3 position(int position) {
         return (RTVector3)super.position(position);
     }
 
-    public RTVector3() { allocate(); }
+    public RTVector3() { super((Pointer)null); allocate(); }
     private native void allocate();
-    public RTVector3(@Cast("RTFLOAT") double x, @Cast("RTFLOAT") double y, @Cast("RTFLOAT") double z) { allocate(x, y, z); }
+    public RTVector3(@Cast("RTFLOAT") double x, @Cast("RTFLOAT") double y, @Cast("RTFLOAT") double z) { super((Pointer)null); allocate(x, y, z); }
     private native void allocate(@Cast("RTFLOAT") double x, @Cast("RTFLOAT") double y, @Cast("RTFLOAT") double z);
 
     public native @Const @ByRef @Name("operator +=") RTVector3 addPut(@ByRef RTVector3 vec);
@@ -154,15 +154,15 @@ public static class RTMath extends Pointer {
     /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
     public RTQuaternion(Pointer p) { super(p); }
     /** Native array allocator. Access with {@link Pointer#position(int)}. */
-    public RTQuaternion(int size) { allocateArray(size); }
+    public RTQuaternion(int size) { super((Pointer)null); allocateArray(size); }
     private native void allocateArray(int size);
     @Override public RTQuaternion position(int position) {
         return (RTQuaternion)super.position(position);
     }
 
-    public RTQuaternion() { allocate(); }
+    public RTQuaternion() { super((Pointer)null); allocate(); }
     private native void allocate();
-    public RTQuaternion(@Cast("RTFLOAT") double scalar, @Cast("RTFLOAT") double x, @Cast("RTFLOAT") double y, @Cast("RTFLOAT") double z) { allocate(scalar, x, y, z); }
+    public RTQuaternion(@Cast("RTFLOAT") double scalar, @Cast("RTFLOAT") double x, @Cast("RTFLOAT") double y, @Cast("RTFLOAT") double z) { super((Pointer)null); allocate(scalar, x, y, z); }
     private native void allocate(@Cast("RTFLOAT") double scalar, @Cast("RTFLOAT") double x, @Cast("RTFLOAT") double y, @Cast("RTFLOAT") double z);
 
     public native @ByRef @Name("operator +=") RTQuaternion addPut(@Const @ByRef RTQuaternion quat);
@@ -213,13 +213,13 @@ public static class RTMath extends Pointer {
     /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
     public RTMatrix4x4(Pointer p) { super(p); }
     /** Native array allocator. Access with {@link Pointer#position(int)}. */
-    public RTMatrix4x4(int size) { allocateArray(size); }
+    public RTMatrix4x4(int size) { super((Pointer)null); allocateArray(size); }
     private native void allocateArray(int size);
     @Override public RTMatrix4x4 position(int position) {
         return (RTMatrix4x4)super.position(position);
     }
 
-    public RTMatrix4x4() { allocate(); }
+    public RTMatrix4x4() { super((Pointer)null); allocate(); }
     private native void allocate();
 
     public native @ByRef @Name("operator +=") RTMatrix4x4 addPut(@Const @ByRef RTMatrix4x4 mat);
@@ -329,13 +329,13 @@ public static final int MAX_READ_LEN =                    255;
     /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
     public RTIMUHal(Pointer p) { super(p); }
     /** Native array allocator. Access with {@link Pointer#position(int)}. */
-    public RTIMUHal(int size) { allocateArray(size); }
+    public RTIMUHal(int size) { super((Pointer)null); allocateArray(size); }
     private native void allocateArray(int size);
     @Override public RTIMUHal position(int position) {
         return (RTIMUHal)super.position(position);
     }
 
-    public RTIMUHal() { allocate(); }
+    public RTIMUHal() { super((Pointer)null); allocate(); }
     private native void allocate();
 
     public native @Cast("bool") boolean m_busIsI2C(); public native RTIMUHal m_busIsI2C(boolean m_busIsI2C);                                        // true if I2C bus in use, false if SPI in use
@@ -440,9 +440,9 @@ public static final int RTFUSION_TYPE_COUNT =                 3;                
 public static class RTIMU_DATA extends Pointer {
     static { Loader.load(); }
     /** Default native constructor. */
-    public RTIMU_DATA() { allocate(); }
+    public RTIMU_DATA() { super((Pointer)null); allocate(); }
     /** Native array allocator. Access with {@link Pointer#position(int)}. */
-    public RTIMU_DATA(int size) { allocateArray(size); }
+    public RTIMU_DATA(int size) { super((Pointer)null); allocateArray(size); }
     /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
     public RTIMU_DATA(Pointer p) { super(p); }
     private native void allocate();
@@ -669,7 +669,7 @@ public static final String RTIMULIB_ACCELCAL_MAXZ =              "AccelCalMaxZ";
     /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
     public RTIMUSettings(Pointer p) { super(p); }
     /** Native array allocator. Access with {@link Pointer#position(int)}. */
-    public RTIMUSettings(int size) { allocateArray(size); }
+    public RTIMUSettings(int size) { super((Pointer)null); allocateArray(size); }
     private native void allocateArray(int size);
     @Override public RTIMUSettings position(int position) {
         return (RTIMUSettings)super.position(position);
@@ -678,26 +678,29 @@ public static final String RTIMULIB_ACCELCAL_MAXZ =              "AccelCalMaxZ";
 
     //  Standard constructor sets up for ini file in working directory
 
-    public RTIMUSettings(@Cast("const char*") BytePointer productType/*="RTIMULib"*/) { allocate(productType); }
+    public RTIMUSettings(@Cast("const char*") BytePointer productType/*="RTIMULib"*/) { super((Pointer)null); allocate(productType); }
     private native void allocate(@Cast("const char*") BytePointer productType/*="RTIMULib"*/);
-    public RTIMUSettings() { allocate(); }
+    public RTIMUSettings() { super((Pointer)null); allocate(); }
     private native void allocate();
-    public RTIMUSettings(String productType/*="RTIMULib"*/) { allocate(productType); }
+    public RTIMUSettings(String productType/*="RTIMULib"*/) { super((Pointer)null); allocate(productType); }
     private native void allocate(String productType/*="RTIMULib"*/);
 
     //  Alternate constructor allow ini file to be in any directory
 
-    public RTIMUSettings(@Cast("const char*") BytePointer settingsDirectory, @Cast("const char*") BytePointer productType) { allocate(settingsDirectory, productType); }
+    public RTIMUSettings(@Cast("const char*") BytePointer settingsDirectory, @Cast("const char*") BytePointer productType) { super((Pointer)null); allocate(settingsDirectory, productType); }
     private native void allocate(@Cast("const char*") BytePointer settingsDirectory, @Cast("const char*") BytePointer productType);
-    public RTIMUSettings(String settingsDirectory, String productType) { allocate(settingsDirectory, productType); }
+    public RTIMUSettings(String settingsDirectory, String productType) { super((Pointer)null); allocate(settingsDirectory, productType); }
     private native void allocate(String settingsDirectory, String productType);
 
     //  This function tries to find an IMU. It stops at the first valid one
     //  and returns true or else false
 
     public native @Cast("bool") boolean discoverIMU(@ByRef IntPointer imuType, @Cast("bool*") @ByRef BoolPointer busIsI2C, @Cast("unsigned char*") @ByRef BytePointer slaveAddress);
-    public native @Cast("bool") boolean discoverIMU(@ByRef IntBuffer imuType, @Cast("bool*") @ByRef BoolPointer busIsI2C, @Cast("unsigned char*") @ByRef ByteBuffer slaveAddress);
+    public native @Cast("bool") boolean discoverIMU(@ByRef IntBuffer imuType, @Cast("bool*") @ByRef boolean[] busIsI2C, @Cast("unsigned char*") @ByRef ByteBuffer slaveAddress);
     public native @Cast("bool") boolean discoverIMU(@ByRef int[] imuType, @Cast("bool*") @ByRef BoolPointer busIsI2C, @Cast("unsigned char*") @ByRef byte[] slaveAddress);
+    public native @Cast("bool") boolean discoverIMU(@ByRef IntPointer imuType, @Cast("bool*") @ByRef boolean[] busIsI2C, @Cast("unsigned char*") @ByRef BytePointer slaveAddress);
+    public native @Cast("bool") boolean discoverIMU(@ByRef IntBuffer imuType, @Cast("bool*") @ByRef BoolPointer busIsI2C, @Cast("unsigned char*") @ByRef ByteBuffer slaveAddress);
+    public native @Cast("bool") boolean discoverIMU(@ByRef int[] imuType, @Cast("bool*") @ByRef boolean[] busIsI2C, @Cast("unsigned char*") @ByRef byte[] slaveAddress);
 
     //  This function tries to find a pressure sensor. It stops at the first valid one
     //  and returns true or else false
@@ -925,8 +928,6 @@ public static final int RTIMU_AXIS_ROTATION_COUNT =       24;
 
 @NoOffset public static class RTIMU extends Pointer {
     static { Loader.load(); }
-    /** Empty constructor. */
-    public RTIMU() { }
     /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
     public RTIMU(Pointer p) { super(p); }
 
@@ -1002,10 +1003,6 @@ public static final int RTIMU_AXIS_ROTATION_COUNT =       24;
     //  getCompassCalibrationValid() returns true if the compass min/max calibration data is being used
 
     public native @Cast("bool") boolean getCompassCalibrationValid();
-
-    //  getRuntimeCompassCalibrationValid() returns true if the runtime compass min/max calibration data is being used
-
-    public native @Cast("bool") boolean getRuntimeCompassCalibrationValid();
 
     //  getCompassCalibrationEllipsoidValid() returns true if the compass ellipsoid calibration data is being used
 

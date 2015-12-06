@@ -34,8 +34,8 @@
 /cuda/target/
 /tensorflow/cppbuild/
 /tensorflow/target/
-/rtimulib2/cppbuild/
-/rtimulib2/target/
+/rtimulib/cppbuild/
+/rtimulib/target/
 
 # Mac
 .DS_Store
