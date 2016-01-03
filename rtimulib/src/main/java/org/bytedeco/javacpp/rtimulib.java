@@ -1023,4 +1023,114 @@ public static final int RTIMU_AXIS_ROTATION_COUNT =       24;
 // #endif // _RTIMU_H
 
 
+// Parsed from IMUDrivers/RTHumidity.h
+
+////////////////////////////////////////////////////////////////////////////
+//
+//  This file is part of RTIMULib
+//
+//  Copyright (c) 2014-2015, richards-tech, LLC
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy of
+//  this software and associated documentation files (the "Software"), to deal in
+//  the Software without restriction, including without limitation the rights to use,
+//  copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the
+//  Software, and to permit persons to whom the Software is furnished to do so,
+//  subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in all
+//  copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+//  INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+//  PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+//  HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+//  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+//  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+// #ifndef _RTHUMIDITY_H
+// #define	_RTHUMIDITY_H
+
+// #include "RTIMUSettings.h"
+// #include "RTIMULibDefs.h"
+// #include "RTHumidityDefs.h"
+
+@NoOffset public static class RTHumidity extends Pointer {
+    static { Loader.load(); }
+    /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
+    public RTHumidity(Pointer p) { super(p); }
+
+    //  Humidity sensor objects should always be created with the following call
+
+    public static native RTHumidity createHumidity(RTIMUSettings settings);
+
+    //  Constructor/destructor
+
+    //  These functions must be provided by sub classes
+
+    public native @Cast("const char*") BytePointer humidityName();                 // the name of the humidity sensor
+    public native int humidityType();                         // the type code of the humidity sensor
+    public native @Cast("bool") boolean humidityInit();                        // set up the humidity sensor
+    public native @Cast("bool") boolean humidityRead(@ByRef RTIMU_DATA data);
+
+}
+
+// #endif // _RTHUMIDITY_H
+
+
+// Parsed from IMUDrivers/RTPressure.h
+
+////////////////////////////////////////////////////////////////////////////
+//
+//  This file is part of RTIMULib
+//
+//  Copyright (c) 2014-2015, richards-tech, LLC
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy of
+//  this software and associated documentation files (the "Software"), to deal in
+//  the Software without restriction, including without limitation the rights to use,
+//  copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the
+//  Software, and to permit persons to whom the Software is furnished to do so,
+//  subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in all
+//  copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+//  INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+//  PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+//  HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+//  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+//  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+// #ifndef _RTPRESSURE_H
+// #define	_RTPRESSURE_H
+
+// #include "RTIMUSettings.h"
+// #include "RTIMULibDefs.h"
+// #include "RTPressureDefs.h"
+
+@NoOffset public static class RTPressure extends Pointer {
+    static { Loader.load(); }
+    /** Pointer cast constructor. Invokes {@link Pointer#Pointer(Pointer)}. */
+    public RTPressure(Pointer p) { super(p); }
+
+    //  Pressure sensor objects should always be created with the following call
+
+    public static native RTPressure createPressure(RTIMUSettings settings);
+
+    //  Constructor/destructor
+
+    //  These functions must be provided by sub classes
+
+    public native @Cast("const char*") BytePointer pressureName();                 // the name of the pressure sensor
+    public native int pressureType();                         // the type code of the pressure sensor
+    public native @Cast("bool") boolean pressureInit();                        // set up the pressure sensor
+    public native @Cast("bool") boolean pressureRead(@ByRef RTIMU_DATA data);
+
+}
+
+// #endif // _RTPRESSURE_H
+
+
 }
