@@ -15,7 +15,7 @@ ENABLE="--enable-pthreads --enable-shared --enable-gpl --enable-version3 --enabl
 # ENABLE="--enable-pthreads --enable-shared --enable-runtime-cpudetect --enable-libopenh264 --enable-encoder=libopenh264 --enable-encoder=aac --enable-decoder=h264 --enable-decoder=aac --enable-parser=h264 --enable-parser=aac --enable-muxer=mp4 --enable-muxer=rtsp --enable-demuxer=mov --enable-demuxer=rtsp --enable-protocol=file --enable-protocol=http --enable-protocol=rtp --enable-protocol=rtmp"
 
 if [[ $PLATFORM == windows* && !($DISABLE =~ "--disable-everything") ]]; then
-    FFMPEG_VERSION=2.8.1
+    FFMPEG_VERSION=2.8.4
     [[ $PLATFORM == *64 ]] && BITS=64 || BITS=32
     download http://ffmpeg.zeranoe.com/builds/win$BITS/dev/ffmpeg-$FFMPEG_VERSION-win$BITS-dev.7z ffmpeg-$FFMPEG_VERSION-win$BITS-dev.7z
     download http://ffmpeg.zeranoe.com/builds/win$BITS/shared/ffmpeg-$FFMPEG_VERSION-win$BITS-shared.7z ffmpeg-$FFMPEG_VERSION-win$BITS-shared.7z
@@ -28,11 +28,11 @@ else
     LAME=lame-3.99.5
     SPEEX=speex-1.2rc2
     OPENCORE_AMR=opencore-amr-0.1.3
-    OPENSSL=openssl-1.0.2d
-    OPENH264_VERSION=1.4.0
+    OPENSSL=openssl-1.0.2e
+    OPENH264_VERSION=1.5.0
     X265=x265_1.8
-    VPX_VERSION=v1.4.0
-    FFMPEG_VERSION=2.8.1
+    VPX_VERSION=v1.5.0
+    FFMPEG_VERSION=2.8.4
     download http://downloads.sourceforge.net/project/lame/lame/3.99/$LAME.tar.gz $LAME.tar.gz
     download http://downloads.xiph.org/releases/speex/$SPEEX.tar.gz $SPEEX.tar.gz
     download http://sourceforge.net/projects/opencore-amr/files/opencore-amr/$OPENCORE_AMR.tar.gz/download $OPENCORE_AMR.tar.gz
@@ -62,11 +62,11 @@ fi
 case $PLATFORM in
     android-arm)
         cd $LAME
-        ./configure --prefix=$INSTALL_PATH --disable-shared --with-pic --host=arm-linux CC="$ANDROID_BIN-gcc" STRIP="$ANDROID_BIN-strip" CFLAGS="--sysroot=$ANDROID_ROOT -DANDROID -fPIC -ffunction-sections -funwind-tables -fstack-protector -march=armv7-a -mfloat-abi=softfp -mfpu=vfpv3-d16 -fomit-frame-pointer -fstrict-aliasing -funswitch-loops -finline-limit=300" LDFLAGS="-nostdlib -Wl,--fix-cortex-a8" LIBS="-lgcc -ldl -lz -lm -lc"
+        ./configure --prefix=$INSTALL_PATH --disable-shared --with-pic --host=arm-linux CPP="$ANDROID_BIN-cpp" CPPFLAGS="--sysroot=$ANDROID_ROOT -DANDROID" CC="$ANDROID_BIN-gcc" STRIP="$ANDROID_BIN-strip" CFLAGS="--sysroot=$ANDROID_ROOT -DANDROID -fPIC -ffunction-sections -funwind-tables -fstack-protector -march=armv7-a -mfloat-abi=softfp -mfpu=vfpv3-d16 -fomit-frame-pointer -fstrict-aliasing -funswitch-loops -finline-limit=300" LDFLAGS="-nostdlib -Wl,--fix-cortex-a8" LIBS="-lgcc -ldl -lz -lm -lc"
         make -j $MAKEJ
         make install
         cd ../$SPEEX
-        ./configure --prefix=$INSTALL_PATH --disable-shared --with-pic --host=arm-linux CC="$ANDROID_BIN-gcc" STRIP="$ANDROID_BIN-strip" CFLAGS="--sysroot=$ANDROID_ROOT -DANDROID -fPIC -ffunction-sections -funwind-tables -fstack-protector -march=armv7-a -mfloat-abi=softfp -mfpu=vfpv3-d16 -fomit-frame-pointer -fstrict-aliasing -funswitch-loops -finline-limit=300" LDFLAGS="-nostdlib -Wl,--fix-cortex-a8" LIBS="-lgcc -ldl -lz -lm -lc"
+        ./configure --prefix=$INSTALL_PATH --disable-shared --with-pic --host=arm-linux CPP="$ANDROID_BIN-cpp" CPPFLAGS="--sysroot=$ANDROID_ROOT -DANDROID" CC="$ANDROID_BIN-gcc" STRIP="$ANDROID_BIN-strip" CFLAGS="--sysroot=$ANDROID_ROOT -DANDROID -fPIC -ffunction-sections -funwind-tables -fstack-protector -march=armv7-a -mfloat-abi=softfp -mfpu=vfpv3-d16 -fomit-frame-pointer -fstrict-aliasing -funswitch-loops -finline-limit=300" LDFLAGS="-nostdlib -Wl,--fix-cortex-a8" LIBS="-lgcc -ldl -lz -lm -lc"
         cd libspeex
         make -j $MAKEJ
         make install
@@ -74,7 +74,7 @@ case $PLATFORM in
         make install
         cd ../../$OPENCORE_AMR
         BUILD_FLAGS="--sysroot=$ANDROID_ROOT -DANDROID -fPIC -ffunction-sections -funwind-tables -fstack-protector -march=armv7-a -mfloat-abi=softfp -mfpu=vfpv3-d16 -fomit-frame-pointer -fstrict-aliasing -funswitch-loops -finline-limit=300"
-        ./configure --prefix=$INSTALL_PATH --disable-shared --with-pic --host=arm-linux CC="$ANDROID_BIN-gcc" CXX="$ANDROID_BIN-g++" RANLIB="$ANDROID_BIN-ranlib" CFLAGS="$BUILD_FLAGS" CXXFLAGS="$BUILD_FLAGS" LDFLAGS="-nostdlib -Wl,--fix-cortex-a8" LIBS="-lgcc -ldl -lz -lm -lc"
+        ./configure --prefix=$INSTALL_PATH --disable-shared --with-pic --host=arm-linux CPP="$ANDROID_BIN-cpp" CPPFLAGS="--sysroot=$ANDROID_ROOT -DANDROID" CC="$ANDROID_BIN-gcc" CXX="$ANDROID_BIN-g++" RANLIB="$ANDROID_BIN-ranlib" CFLAGS="$BUILD_FLAGS" CXXFLAGS="$BUILD_FLAGS" LDFLAGS="-nostdlib -Wl,--fix-cortex-a8" LIBS="-lgcc -ldl -lz -lm -lc"
         make -j $MAKEJ
         make install
         cd ../$OPENSSL
@@ -105,11 +105,11 @@ case $PLATFORM in
 
      android-x86)
         cd $LAME
-        ./configure --prefix=$INSTALL_PATH --disable-shared --with-pic --host=i686-linux CC="$ANDROID_BIN-gcc" STRIP="$ANDROID_BIN-strip" CFLAGS="--sysroot=$ANDROID_ROOT -DANDROID -fPIC -ffunction-sections -funwind-tables -mssse3 -mfpmath=sse -fomit-frame-pointer -fstrict-aliasing -funswitch-loops -finline-limit=300" LDFLAGS="-nostdlib" LIBS="-lgcc -ldl -lz -lm -lc"
+        ./configure --prefix=$INSTALL_PATH --disable-shared --with-pic --host=i686-linux CPP="$ANDROID_BIN-cpp" CPPFLAGS="--sysroot=$ANDROID_ROOT -DANDROID" CC="$ANDROID_BIN-gcc" STRIP="$ANDROID_BIN-strip" CFLAGS="--sysroot=$ANDROID_ROOT -DANDROID -fPIC -ffunction-sections -funwind-tables -mssse3 -mfpmath=sse -fomit-frame-pointer -fstrict-aliasing -funswitch-loops -finline-limit=300" LDFLAGS="-nostdlib" LIBS="-lgcc -ldl -lz -lm -lc"
         make -j $MAKEJ
         make install
         cd ../$SPEEX
-        ./configure --prefix=$INSTALL_PATH --disable-shared --with-pic --host=i686-linux CC="$ANDROID_BIN-gcc" STRIP="$ANDROID_BIN-strip" CFLAGS="--sysroot=$ANDROID_ROOT -DANDROID -fPIC -ffunction-sections -funwind-tables -mssse3 -mfpmath=sse -fomit-frame-pointer -fstrict-aliasing -funswitch-loops -finline-limit=300" LDFLAGS="-nostdlib" LIBS="-lgcc -ldl -lz -lm -lc"
+        ./configure --prefix=$INSTALL_PATH --disable-shared --with-pic --host=i686-linux CPP="$ANDROID_BIN-cpp" CPPFLAGS="--sysroot=$ANDROID_ROOT -DANDROID" CC="$ANDROID_BIN-gcc" STRIP="$ANDROID_BIN-strip" CFLAGS="--sysroot=$ANDROID_ROOT -DANDROID -fPIC -ffunction-sections -funwind-tables -mssse3 -mfpmath=sse -fomit-frame-pointer -fstrict-aliasing -funswitch-loops -finline-limit=300" LDFLAGS="-nostdlib" LIBS="-lgcc -ldl -lz -lm -lc"
         cd libspeex
         make -j $MAKEJ
         make install
@@ -117,7 +117,7 @@ case $PLATFORM in
         make install
         cd ../../$OPENCORE_AMR
         BUILD_FLAGS="--sysroot=$ANDROID_ROOT -DANDROID -fPIC -ffunction-sections -funwind-tables -mssse3 -mfpmath=sse -fomit-frame-pointer -fstrict-aliasing -funswitch-loops -finline-limit=300"
-        ./configure --prefix=$INSTALL_PATH --disable-shared --with-pic --host=i686-linux CC="$ANDROID_BIN-gcc" CXX="$ANDROID_BIN-g++" RANLIB="$ANDROID_BIN-ranlib" CFLAGS="$BUILD_FLAGS" CXXFLAGS="$BUILD_FLAGS" LDFLAGS="-nostdlib" LIBS="-lgcc -ldl -lz -lm -lc"
+        ./configure --prefix=$INSTALL_PATH --disable-shared --with-pic --host=i686-linux CPP="$ANDROID_BIN-cpp" CPPFLAGS="--sysroot=$ANDROID_ROOT -DANDROID" CC="$ANDROID_BIN-gcc" CXX="$ANDROID_BIN-g++" RANLIB="$ANDROID_BIN-ranlib" CFLAGS="$BUILD_FLAGS" CXXFLAGS="$BUILD_FLAGS" LDFLAGS="-nostdlib" LIBS="-lgcc -ldl -lz -lm -lc"
         make -j $MAKEJ
         make install
         cd ../$OPENSSL
@@ -164,7 +164,7 @@ case $PLATFORM in
         make # fails with -j > 1
         make install
         cd ../openh264-$OPENH264_VERSION
-        make -j $MAKEJ DESTDIR=. PREFIX=.. AR=ar ARCH=x86 libraries install-static
+        make -j $MAKEJ DESTDIR=./ PREFIX=.. AR=ar ARCH=x86 libraries install-static
         cd ../$X264
         ./configure --prefix=$INSTALL_PATH --enable-static --enable-pic --disable-opencl --host=i686-linux
         make -j $MAKEJ
@@ -202,7 +202,7 @@ case $PLATFORM in
         make # fails with -j > 1
         make install
         cd ../openh264-$OPENH264_VERSION
-        make -j $MAKEJ DESTDIR=. PREFIX=.. AR=ar ARCH=x86_64 libraries install-static
+        make -j $MAKEJ DESTDIR=./ PREFIX=.. AR=ar ARCH=x86_64 libraries install-static
         cd ../$X264
         ./configure --prefix=$INSTALL_PATH --enable-static --enable-pic --disable-opencl --host=x86_64-linux
         make -j $MAKEJ
@@ -240,7 +240,7 @@ case $PLATFORM in
         make # fails with -j > 1
         make install
         cd ../openh264-$OPENH264_VERSION
-        make -j $MAKEJ DESTDIR=. PREFIX=.. AR=ar libraries install-static
+        make -j $MAKEJ DESTDIR=./ PREFIX=.. AR=ar libraries install-static
         cd ../$X264
         ./configure --prefix=$INSTALL_PATH --enable-static --enable-pic --disable-opencl
         make -j $MAKEJ
@@ -286,7 +286,7 @@ case $PLATFORM in
         make # fails with -j > 1
         make install
         cd ../openh264-$OPENH264_VERSION
-        make -j $MAKEJ DESTDIR=. PREFIX=.. AR=ar ARCH=x86 libraries install-static
+        make -j $MAKEJ DESTDIR=./ PREFIX=.. AR=ar ARCH=x86 libraries install-static
         cd ../$X264
         ./configure --prefix=$INSTALL_PATH --enable-static --enable-pic --disable-opencl --host=i686-w64-mingw32
         make -j $MAKEJ
@@ -332,7 +332,7 @@ case $PLATFORM in
         make # fails with -j > 1
         make install
         cd ../openh264-$OPENH264_VERSION
-        make -j $MAKEJ DESTDIR=. PREFIX=.. AR=ar ARCH=x86_64 libraries install-static
+        make -j $MAKEJ DESTDIR=./ PREFIX=.. AR=ar ARCH=x86_64 libraries install-static
         cd ../$X264
         ./configure --prefix=$INSTALL_PATH --enable-static --enable-pic --disable-opencl --host=x86_64-w64-mingw32
         make -j $MAKEJ
